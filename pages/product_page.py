@@ -15,3 +15,8 @@ class ProductPage(BasePage):
 
     def get_product_title(self):
         return self.driver.find_element(*self.PRODUCT_TITLE).text
+
+    def click_back_to_products(self):
+        self.driver.find_element(*self.BACK_TO_PRODUCTS).click()
+
+
