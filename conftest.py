@@ -3,6 +3,7 @@ import pytest
 from config.settings import BASE_URL
 from utils.driver_factory import create_driver
 
+
 BROWSERS = ["chrome", "firefox"]
 
 def pytest_addoption(parser):

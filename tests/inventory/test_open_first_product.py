@@ -1,6 +1,7 @@
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 
+
 def test_open_first_product(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

@@ -1,5 +1,6 @@
 from pages.login_page import LoginPage
 
+
 def test_remove_from_cart_updates_button_and_badge(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

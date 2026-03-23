@@ -2,9 +2,8 @@ from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from pages.inventory_page import InventoryPage
 
+
 class LoginPage(BasePage):
-    def __init__(self, driver):
-        super().__init__(driver)
 
     # Locators
     USERNAME_INPUT = (By.ID, "user-name")
@@ -12,7 +11,10 @@ class LoginPage(BasePage):
     LOGIN_BUTTON = (By.ID, "login-button")
     ERROR_MESSAGE = (By.CSS_SELECTOR, '[data-test="error"]')
 
-    # Actions
+    def __init__(self, driver):
+        super().__init__(driver)
+
+    # Methods
     def enter_username(self, username):
         self.driver.find_element(*self.USERNAME_INPUT).send_keys(username)
 
@@ -26,7 +28,15 @@ class LoginPage(BasePage):
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()
-        return InventoryPage(self.driver)
+        inventory_page = InventoryPage(self.driver)
+        inventory_page.wait_for_visible_element(inventory_page.PRODUCTS_TITLE)
+        return inventory_page
+
+    def attempt_login(self, username, password):
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_login()
+
 
     def is_error_message_visible(self):
         return self.driver.find_element(*self.ERROR_MESSAGE).is_displayed()

@@ -1,6 +1,7 @@
 import pytest
 from pages.login_page import LoginPage
 
+
 @pytest.mark.parametrize(
     "username, password",
     [
@@ -19,7 +20,7 @@ def test_login_invalid_credentials(driver, username, password):
 
     # Attempt login with invalid credentials
     login_page = LoginPage(driver)
-    login_page.login(username, password)
+    login_page.attempt_login(username, password)
 
     # Verify NO redirect happened
     assert "inventory.html" not in driver.current_url

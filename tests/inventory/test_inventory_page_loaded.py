@@ -1,5 +1,6 @@
 from pages.login_page import LoginPage
 
+
 def test_inventory_page_loaded(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

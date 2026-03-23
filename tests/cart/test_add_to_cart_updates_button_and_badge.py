@@ -1,5 +1,6 @@
 from pages.login_page import LoginPage
 
+
 def test_add_to_cart_updates_button_and_badge(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")
@@ -22,3 +23,4 @@ def test_add_to_cart_updates_button_and_badge(driver):
 
     actual_badge_text = inventory_page.get_shopping_cart_badge_text()
     assert "1" == actual_badge_text, f"Expected '1', got '{actual_badge_text}'"
+
