@@ -1,7 +1,9 @@
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
+import allure
 
 
+@allure.title("Open first product from the inventory page")
 def test_open_first_product(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

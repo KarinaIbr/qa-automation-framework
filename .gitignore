@@ -4,3 +4,5 @@ __pycache__/
 reports/
 .DS_Store
 .idea/
+allure-results/
+allure-report/

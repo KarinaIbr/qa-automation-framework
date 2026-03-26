@@ -1,6 +1,8 @@
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Inventory page loads successfully")
 def test_inventory_page_loaded(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

@@ -1,6 +1,8 @@
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Added product appears in cart with correct details")
 def test_product_appears_in_cart_with_correct_details(driver):
 
     login_page = LoginPage(driver)

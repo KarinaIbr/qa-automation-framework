@@ -1,9 +1,8 @@
-import select
-
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from pages.cart_page import CartPage
 from selenium.webdriver.support.select import Select
+
 
 class InventoryPage(BasePage):
 
@@ -73,11 +72,14 @@ class InventoryPage(BasePage):
 
     def sort_products_by_price_low_to_high(self):
         sort_low_to_high = Select(self.driver.find_element(*self.INVENTORY_SORT_CONTAINER))
+        sort_low_to_high.select_by_visible_text("Price (low to high)")
 
     def get_all_product_prices(self):
         all_prices = self.driver.find_elements(*self.INVENTORY_ITEM_PRICE)
-        price_texts = [price.text for price in all_prices]
-        return price_texts
+        price_values = [float(price.text.replace("$", "")) for price in all_prices]
+        return price_values
+
+
 
 
 

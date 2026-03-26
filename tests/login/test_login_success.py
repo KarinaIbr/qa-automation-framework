@@ -1,6 +1,8 @@
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Login succeeds with valid credentials")
 def test_login_success(driver):
 
     login_page = LoginPage(driver)

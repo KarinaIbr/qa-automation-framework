@@ -1,6 +1,8 @@
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Add to cart updates button text and shopping cart badge")
 def test_add_to_cart_updates_button_and_badge(driver):
     login_page = LoginPage(driver)
     inventory_page = login_page.login("standard_user", "secret_sauce")

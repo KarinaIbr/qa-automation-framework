@@ -1,8 +1,10 @@
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 from pages.inventory_page import InventoryPage
+import allure
 
 
+@allure.title("Back to Products returns user to inventory page")
 def test_back_to_products_returns_to_inventory(driver):
 
     # Open product page from inventory

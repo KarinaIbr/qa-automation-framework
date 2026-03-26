@@ -1,7 +1,9 @@
 import pytest
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Login is rejected for invalid credentials ({param_id})")
 @pytest.mark.parametrize(
     "username, password",
     [

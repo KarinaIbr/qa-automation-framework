@@ -1,7 +1,9 @@
 import pytest
 from pages.login_page import LoginPage
+import allure
 
 
+@allure.title("Login validation works for empty credentials ({param_id})")
 @pytest.mark.parametrize(
     "username, password, expected_error_text",
     [
