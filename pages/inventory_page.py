@@ -23,7 +23,7 @@ class InventoryPage(BasePage):
 
     # Methods
     def is_products_title_visible(self):
-        return self.driver.find_element(*self.PRODUCTS_TITLE).is_displayed()
+        return self.wait_for_visible_element(self.PRODUCTS_TITLE).is_displayed()
 
     def get_inventory_items_count(self):
         return len(self.driver.find_elements(*self.INVENTORY_ITEMS))
@@ -35,7 +35,7 @@ class InventoryPage(BasePage):
         return self.driver.find_element(*self.INVENTORY_ITEM_NAME).text
 
     def get_backpack_button_text(self):
-        return self.driver.find_element(*self.ADD_TO_CART_BACKPACK).text
+        return self.wait_for_visible_element(self.ADD_TO_CART_BACKPACK).text
 
     def click_add_to_cart_backpack_button(self):
         self.driver.find_element(*self.ADD_TO_CART_BACKPACK).click()
@@ -53,7 +53,7 @@ class InventoryPage(BasePage):
         self.driver.find_element(*self.REMOVE_BACKPACK).click()
 
     def open_cart(self):
-        self.driver.find_element(*self.SHOPPING_CART_LINK).click()
+        self.wait_for_clickable_element(self.SHOPPING_CART_LINK).click()
         cart_page = CartPage(self.driver)
         cart_page.wait_for_url_contains("cart.html")
         return cart_page

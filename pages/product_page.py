@@ -19,6 +19,6 @@ class ProductPage(BasePage):
         return self.wait_for_visible_element(self.PRODUCT_TITLE).text
 
     def click_back_to_products(self):
-        self.driver.find_element(*self.BACK_TO_PRODUCTS).click()
+        self.wait_for_clickable_element(self.BACK_TO_PRODUCTS).click()
 
 

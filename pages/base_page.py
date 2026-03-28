@@ -17,3 +17,8 @@ class BasePage:
     def wait_for_url_contains(self, text):
         wait = WebDriverWait(self.driver, TIMEOUT)
         return wait.until(EC.url_contains(text))
+
+    def wait_for_clickable_element(self, locator):
+        wait = WebDriverWait(self.driver, TIMEOUT)
+        return wait.until(EC.element_to_be_clickable(locator))
+
