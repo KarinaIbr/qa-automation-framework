@@ -37,7 +37,7 @@ jobs:
 
       - name: Generate Allure report
         if: ${{ always() }}
-        run: allure generate ./allure-results -o ./allure-report --clean
+        run: allure generate ./allure-results -o ./allure-report
 
       - name: Upload Allure report artifact
         if: ${{ always() }}
