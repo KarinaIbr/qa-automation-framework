@@ -25,4 +25,4 @@ class BasePage:
     def click_element(self, locator):
         element = self.wait_for_clickable_element(locator)
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-        element.click()
+        self.driver.execute_script("arguments[0].click();", element)
