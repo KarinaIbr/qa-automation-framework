@@ -55,6 +55,7 @@ class InventoryPage(BasePage):
     def open_cart(self):
         self.driver.find_element(*self.SHOPPING_CART_LINK).click()
         cart_page = CartPage(self.driver)
+        cart_page.wait_for_url_contains("cart.html")
         return cart_page
 
     def _get_backpack_container(self):
