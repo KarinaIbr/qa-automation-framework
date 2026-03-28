@@ -38,10 +38,11 @@ class InventoryPage(BasePage):
         return self.wait_for_visible_element(self.ADD_TO_CART_BACKPACK).text
 
     def click_add_to_cart_backpack_button(self):
-        self.driver.find_element(*self.ADD_TO_CART_BACKPACK).click()
+        self.wait_for_clickable_element(self.ADD_TO_CART_BACKPACK).click()
+        self.wait_for_visible_element(self.REMOVE_BACKPACK)
 
     def get_remove_backpack_text(self):
-        return self.driver.find_element(*self.REMOVE_BACKPACK).text
+        return self.wait_for_visible_element(self.REMOVE_BACKPACK).text
 
     def is_shopping_cart_badge_visible(self):
         return len(self.driver.find_elements(*self.SHOPPING_CART_BADGE)) > 0
@@ -50,7 +51,8 @@ class InventoryPage(BasePage):
         return self.driver.find_element(*self.SHOPPING_CART_BADGE).text
 
     def click_remove_backpack_button(self):
-        self.driver.find_element(*self.REMOVE_BACKPACK).click()
+        self.wait_for_clickable_element(self.REMOVE_BACKPACK).click()
+        self.wait_for_visible_element(self.ADD_TO_CART_BACKPACK)
 
     def open_cart(self):
         self.wait_for_clickable_element(self.SHOPPING_CART_LINK).click()

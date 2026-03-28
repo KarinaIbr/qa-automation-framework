@@ -20,5 +20,6 @@ class ProductPage(BasePage):
 
     def click_back_to_products(self):
         self.wait_for_clickable_element(self.BACK_TO_PRODUCTS).click()
+        self.wait_for_url_contains("inventory.html")
 
 
