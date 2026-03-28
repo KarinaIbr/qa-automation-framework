@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from pages.cart_page import CartPage
+from pages.product_page import ProductPage
 from selenium.webdriver.support.select import Select
 
 
@@ -30,6 +31,9 @@ class InventoryPage(BasePage):
 
     def open_first_product(self):
         self.click_element(self.INVENTORY_ITEM_NAME)
+        product_page = ProductPage(self.driver)
+        product_page.wait_for_visible_element(product_page.BACK_TO_PRODUCTS)
+        return product_page
 
     def get_first_product_title(self):
         return self.driver.find_element(*self.INVENTORY_ITEM_NAME).text
