@@ -13,13 +13,13 @@ class ProductPage(BasePage):
 
     # Methods
     def is_back_to_products_visible(self):
-        return self.driver.find_element(*self.BACK_TO_PRODUCTS).is_displayed()
+        return self.wait_for_visible_element(self.BACK_TO_PRODUCTS).is_displayed()
 
     def get_product_title(self):
         return self.wait_for_visible_element(self.PRODUCT_TITLE).text
 
     def click_back_to_products(self):
-        self.wait_for_clickable_element(self.BACK_TO_PRODUCTS).click()
+        self.click_element(self.BACK_TO_PRODUCTS)
         self.wait_for_url_contains("inventory.html")
 
 

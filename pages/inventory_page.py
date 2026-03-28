@@ -29,7 +29,7 @@ class InventoryPage(BasePage):
         return len(self.driver.find_elements(*self.INVENTORY_ITEMS))
 
     def open_first_product(self):
-        self.driver.find_element(*self.INVENTORY_ITEM_NAME).click()
+        self.click_element(self.INVENTORY_ITEM_NAME)
 
     def get_first_product_title(self):
         return self.driver.find_element(*self.INVENTORY_ITEM_NAME).text
@@ -38,7 +38,7 @@ class InventoryPage(BasePage):
         return self.wait_for_visible_element(self.ADD_TO_CART_BACKPACK).text
 
     def click_add_to_cart_backpack_button(self):
-        self.wait_for_clickable_element(self.ADD_TO_CART_BACKPACK).click()
+        self.click_element(self.ADD_TO_CART_BACKPACK)
         self.wait_for_visible_element(self.REMOVE_BACKPACK)
 
     def get_remove_backpack_text(self):
@@ -51,11 +51,11 @@ class InventoryPage(BasePage):
         return self.driver.find_element(*self.SHOPPING_CART_BADGE).text
 
     def click_remove_backpack_button(self):
-        self.wait_for_clickable_element(self.REMOVE_BACKPACK).click()
+        self.click_element(self.REMOVE_BACKPACK)
         self.wait_for_visible_element(self.ADD_TO_CART_BACKPACK)
 
     def open_cart(self):
-        self.wait_for_clickable_element(self.SHOPPING_CART_LINK).click()
+        self.click_element(self.SHOPPING_CART_LINK)
         cart_page = CartPage(self.driver)
         cart_page.wait_for_url_contains("cart.html")
         return cart_page
