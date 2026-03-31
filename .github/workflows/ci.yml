@@ -3,7 +3,12 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+
+  # Run UI tests and build the Allure report
   ui_tests:
     runs-on: ubuntu-latest
     steps:
@@ -39,9 +44,37 @@ jobs:
         if: ${{ always() }}
         run: allure generate ./allure-results -o ./allure-report
 
+      # Keep the report artifact for debugging, even if tests fail
       - name: Upload Allure report artifact
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
           name: allure-report
           path: ./allure-report
+
+      # Publish a browser-friendly Pages report only from push to main
+      - name: Configure GitHub Pages
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./allure-report
+
+  deploy_pages:
+    needs: ui_tests
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
