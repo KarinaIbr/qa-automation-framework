@@ -1,4 +1,4 @@
-name: UI CI
+name: UI Test CI/CD
 on:
   push:
   pull_request:
