@@ -1,4 +1,4 @@
-# QA Automation Framework
+# UI Automation Framework
 
 ## Live Allure Report
 
