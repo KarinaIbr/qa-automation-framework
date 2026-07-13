@@ -23,12 +23,17 @@ class BasePage:
     def wait_for_clickable_element(self, locator):
         return self.wait.until(EC.element_to_be_clickable(locator))
 
-    def click_element(self, locator):
-        element = self.wait_for_clickable_element(locator)
-        self.scroll_to_element(element)
-        element.click()
+#    def click_element(self, locator):
+#        element = self.wait_for_clickable_element(locator)
+#        self.scroll_to_element(element)
+#        element.click()
 
     def js_click(self, locator):
+        element = self.wait_for_clickable_element(locator)
+        self.scroll_to_element(element)
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def click_element(self, locator):
         element = self.wait_for_clickable_element(locator)
         self.scroll_to_element(element)
         self.driver.execute_script("arguments[0].click();", element)
