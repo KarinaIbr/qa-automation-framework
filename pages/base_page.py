@@ -25,6 +25,7 @@ class BasePage:
 
     def click_element(self, locator):
         element = self.wait_for_clickable_element(locator)
+        self.scroll_to_element(element)
         element.click()
 
     def js_click(self, locator):
