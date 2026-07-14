@@ -27,10 +27,12 @@ def driver(request):
 
     yield driver
 
-    # Attach screenshot to Allure report if test fails
+    # Attach diagnostic artifacts to Allure report if test fails
     if hasattr(request.node, "rep_call") and request.node.rep_call.failed:
         screenshot = driver.get_screenshot_as_png()
         allure.attach(screenshot, name="failure_screenshot", attachment_type=allure.attachment_type.PNG)
+        allure.attach(driver.current_url, name="current_url", attachment_type=allure.attachment_type.TEXT)
+        allure.attach(driver.page_source, name="page_source", attachment_type=allure.attachment_type.HTML)
 
     driver.quit()
 
