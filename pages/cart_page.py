@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from pages.checkout_page import CheckoutPage
 
 
 class CartPage(BasePage):
@@ -9,6 +10,7 @@ class CartPage(BasePage):
     CART_ITEM_NAME = (By.CSS_SELECTOR, '[data-test="inventory-item-name"]')
     CART_ITEM_PRICE = (By.CSS_SELECTOR, '[data-test="inventory-item-price"]')
     CART_ITEM_QUANTITIES = (By.CSS_SELECTOR, '[data-test="item-quantity"]')
+    CHECKOUT_BUTTON = (By.CSS_SELECTOR, '[data-test="checkout"]')
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -25,4 +27,11 @@ class CartPage(BasePage):
 
     def get_cart_item_count(self):
         return len(self.driver.find_elements(*self.CART_ITEM_QUANTITIES))
+
+    def click_checkout(self):
+        self.click_element(self.CHECKOUT_BUTTON)
+        return CheckoutPage(self.driver)
+
+
+
 
