@@ -10,3 +10,7 @@ def test_checkout_opens_information_page(driver):
 
     inventory_page.click_add_to_cart_backpack_button()
     cart_page = inventory_page.open_cart()
+
+    checkout_page = cart_page.click_checkout()
+
+    assert checkout_page.is_loaded(), "Checkout information page was not loaded."

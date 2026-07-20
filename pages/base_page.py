@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from config.settings import TIMEOUT
-from selenium.common.exceptions import ElementClickInterceptedException, ElementNotInteractableException
+from selenium.common.exceptions import ElementClickInterceptedException, ElementNotInteractableException, TimeoutException
 
 class BasePage:
     def __init__(self, driver):
@@ -35,3 +35,9 @@ class BasePage:
         except (ElementClickInterceptedException, ElementNotInteractableException):
             self.driver.execute_script("arguments[0].click();", element)
 
+    def is_element_visible(self, locator):
+        try:
+            self.wait_for_visible_element(locator)
+            return True
+        except TimeoutException:
+            return False
