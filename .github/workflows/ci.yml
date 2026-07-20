@@ -38,7 +38,10 @@ jobs:
           node-version: '24'
 
       - name: Install Allure CLI
-        run: npm install -g allure
+        run: |
+          npm install -g allure-commandline
+          allure --version
+        
 
       - name: Generate Allure report
         if: ${{ always() }}
