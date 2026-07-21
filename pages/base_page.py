@@ -28,8 +28,6 @@ class BasePage:
 
     def click_element(self, locator):
         element = self.wait_for_clickable_element(locator)
-        self.scroll_to_element(element)
-        element = self.wait_for_clickable_element(locator)
 
         try:
             element.click()
