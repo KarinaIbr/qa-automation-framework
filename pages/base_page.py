@@ -28,11 +28,8 @@ class BasePage:
 
     def click_element(self, locator):
         element = self.wait_for_clickable_element(locator)
-
-        try:
-            element.click()
-        except (ElementClickInterceptedException, ElementNotInteractableException):
-            self.driver.execute_script("arguments[0].click();", element)
+        self.scroll_to_element(element)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def is_element_visible(self, locator):
         try:
