@@ -30,6 +30,7 @@ class CartPage(BasePage):
 
     def click_checkout(self):
         self.click_element(self.CHECKOUT_BUTTON)
+        self.wait_for_url_contains("checkout-step-one.html")
         return CheckoutPage(self.driver)
 
 
