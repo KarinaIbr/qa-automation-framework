@@ -1,168 +1,95 @@
 # UI Automation Framework
 
-## Live Allure Report
+[**View Live Allure Report**](https://karinaibr.github.io/qa-automation-framework/)
 
-[Open UI Allure Report](https://karinaibr.github.io/qa-automation-framework/)
+UI test automation framework for Swag Labs using Python, Selenium WebDriver, and pytest.
 
-A UI test automation framework for Swag Labs built with Python, Selenium, and pytest.
+The project covers login, inventory, product sorting, cart behavior, and checkout navigation. Tests are organized using Page Object Model, with browser interactions separated from test assertions.
 
-It focuses on core user flows, maintainable Page Objects, stable browser execution, and clear test reporting.
+## Test Coverage
 
-## Key Features
+**Login & Access Control**
+- Successful login
+- Invalid and empty credentials
+- Locked-out user
+- Unauthorized access to the inventory page
 
-- Page Object Model with clear separation between page logic and test logic
-- Reusable `BasePage` methods for waits, clicks, and common browser actions
-- Browser setup managed through a centralized driver factory
-- Cross-browser execution with Chrome and Firefox
-- Headless execution for local and CI runs
-- Automatic screenshots on test failure
-- Allure reporting with readable test results
-- GitHub Actions CI for push and pull request validation
-- Published GitHub Pages report for quick review
+**Inventory**
+- Page loading and product visibility
+- Product count verification
+- Opening product details and returning to inventory
+- Price sorting from low to high
+
+**Cart & Checkout**
+- Empty cart after login
+- Adding and removing products
+- Cart badge and button state changes
+- Product name and price verification
+- Cart state after page refresh
+- Checkout navigation
+
+## Framework Structure
+
+- `pages/` contains Page Objects and shared `BasePage` methods for element interactions and waits.
+- `tests/` contains tests grouped by login, inventory, and cart.
+- `utils/driver_factory.py` handles Chrome, Firefox, and headless browser setup.
+- `config/settings.py` stores the application URL and timeout configuration.
+- `conftest.py` manages browser fixtures, test lifecycle, failure screenshots, and reporting hooks.
+- `.github/workflows/ci.yml` runs the test suite through GitHub Actions.
 
 ## Tech Stack
 
-- Python
-- Selenium
-- pytest
-- pytest-html
-- Allure Report
-- GitHub Actions
-- GitHub Pages
+Python, Selenium WebDriver, pytest, pytest-html, Allure Report, GitHub Actions, GitHub Pages.
 
-## Project Structure
+## Running Tests Locally
 
-```text
-qa-automation-framework/
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-├── config/
-│   └── settings.py
-├── pages/
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── inventory_page.py
-│   ├── product_page.py
-│   └── cart_page.py
-├── tests/
-│   ├── login/
-│   ├── inventory/
-│   └── cart/
-├── utils/
-│   └── driver_factory.py
-├── conftest.py
-├── pytest.ini
-├── requirements.txt
-└── README.md
-```
-
-## Current Coverage
-
-### Login
-
-The test suite currently covers:
-
-- Successful login
-- Invalid credentials validation
-- Empty username validation
-- Empty password validation
-- Empty username and password validation
-
-### Inventory
-
-The test suite currently covers:
-
-- Inventory page loading
-- Product list visibility
-- Opening the first product from the inventory page
-- Back to products navigation
-- Sorting products by price from low to high
-
-### Cart
-
-The test suite currently covers:
-
-- Adding a product to the cart
-- Verifying button state after adding a product
-- Verifying cart badge after adding a product
-- Removing a product from the cart
-- Verifying button state after removing a product
-- Verifying cart badge after removing a product
-- Verifying product name and price in the cart
-
-## How to Run Locally
+Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/karinaibr/qa-automation-framework.git
+git clone https://github.com/KarinaIbr/qa-automation-framework.git
 cd qa-automation-framework
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-pytest
 ```
 
-Run tests in headless mode:
+Chrome and Firefox should be installed locally.
+
+Run the tests:
 
 ```bash
-pytest --headless
+pytest --headless --alluredir=allure-results
 ```
 
-Generate Allure results locally:
+The browser fixture runs tests against both Chrome and Firefox. Remove `--headless` to watch the tests execute in the browser.
+
+Run a specific test area:
 
 ```bash
-pytest --alluredir=allure-results
+pytest tests/login -v --alluredir=allure-results
+pytest tests/inventory -v --alluredir=allure-results
+pytest tests/cart -v --alluredir=allure-results
 ```
 
-Generate and open the Allure report:
+To generate and open an Allure report (requires Allure CLI):
 
 ```bash
 allure generate allure-results -o allure-report --clean
 allure open allure-report
 ```
 
-## Run Specific Test Areas
+## CI & Reporting
 
-Run login tests:
+GitHub Actions runs the test suite on pushes and pull requests.
 
-```bash
-pytest tests/login -v
-```
+The workflow runs headless browser tests, collects Allure results, and generates an HTML report. Failed tests include screenshots, the current URL, and page source to help investigate failures.
 
-Run inventory tests:
+Reports are saved as GitHub Actions artifacts. The Allure report is also published to GitHub Pages after successful runs on `main`.
 
-```bash
-pytest tests/inventory -v
-```
+[**Open Published Allure Report**](https://karinaibr.github.io/qa-automation-framework/)
 
-Run cart tests:
+## Click Handling
 
-```bash
-pytest tests/cart -v
-```
+Native Selenium clicks were causing repeated failures in Chrome CI. I tried a few approaches, including native clicks with a JavaScript fallback, but eventually switched back to JS clicks after scrolling elements into view.
 
-## Framework Notes
-
-- Page Objects keep UI interaction logic separate from test assertions.
-- `BasePage` contains shared browser interaction behavior such as waits, clicks, and visibility checks.
-- `driver_factory.py` centralizes browser creation and headless configuration.
-- `conftest.py` manages browser fixtures, pytest hooks, failure screenshots, HTML report paths, and Allure environment data.
-- Tests verify visible user behavior and state changes, not only element presence.
-
-## CI/CD and Reporting
-
-GitHub Actions runs the UI test suite automatically on push and pull requests.
-
-The workflow runs tests in headless mode, generates Allure results, builds an Allure report, uploads the report as an artifact for debugging, and publishes the latest report to GitHub Pages.
-
-Failure screenshots are attached to Allure when a test fails.
-
-The latest published report is available here:
-
-[Open UI Allure Report](https://karinaibr.github.io/qa-automation-framework/)
-
-## Next Steps
-
-- Add selected negative UI scenarios where they improve coverage
-- Continue improving test stability and reporting details
-- Keep README, Allure reports, and project documentation aligned with the current framework state
+The current implementation is in `BasePage`. I may revisit this if I find a more reliable solution.
